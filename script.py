@@ -163,4 +163,7 @@ def hurricane_economic_damage_rating(hurricanes):
             
     return hurricane_damage_dict
 
-print(hurricane_economic_damage_rating(hurricanes))
+#print(hurricane_economic_damage_rating(hurricanes))
+# categorize hurricanes in new dictionary with damage severity as key
+hurricanes_by_damage = hurricane_economic_damage_rating(hurricanes)
+print(hurricanes_by_damage[1])
