@@ -98,34 +98,77 @@ def most_affected_area():
 def hurricane_with_most_deaths():
     most_deaths_hurricane=""
     death_count=0
-    for hurricane,details in hurricanes.items():
+    for hurricane in hurricanes.values():
         if most_deaths_hurricane == "":
-            most_deaths_hurricane = hurricane
-            death_count = details['Deaths']
-        elif details['Deaths'] > death_count:
-                most_deaths_hurricane = hurricane
-                death_count = details['Deaths']
+            most_deaths_hurricane = hurricane['Name']
+            death_count = hurricane['Deaths']
+        elif hurricane['Deaths'] > death_count:
+                most_deaths_hurricane = hurricane['Name']
+                death_count = hurricane['Deaths']
     return "Hurricane {} had the highest death toll of {}.".format(most_deaths_hurricane,death_count)
 
-print(hurricane_with_most_deaths())
+#print(hurricane_with_most_deaths())
 
+# write your categorize by mortality function here:
+def hurricane_mortality_rating():
+    mortality_scale = {0: 0, 1: 100, 2: 500, 3: 1000, 4: 10000}
+    hurricane_mortality_dict = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []}
 
+    for hurricane in hurricanes.values():
+        deaths = hurricane['Deaths']
+        if deaths > mortality_scale[4]:
+            hurricane_mortality_dict[5].append(hurricane)
+        elif deaths > mortality_scale[3]:
+            hurricane_mortality_dict[4].append(hurricane)
+        elif deaths > mortality_scale[2]:
+            hurricane_mortality_dict[3].append(hurricane)
+        elif deaths > mortality_scale[1]:
+            hurricane_mortality_dict[2].append(hurricane)
+        elif deaths > mortality_scale[0]:
+            hurricane_mortality_dict[1].append(hurricane)
+        else:
+            hurricane_mortality_dict[0].append(hurricane)
+    return hurricane_mortality_dict
 
-
-# write your catgeorize by mortality function here:
-
-
-
-
-
-
+#print(hurricane_mortality_rating())
 
 # write your greatest damage function here:
+def hurricane_with_highest_economic_damage():
+    highest_damage_hurricane=""
+    damage=0
+    for name,hurricane in hurricanes.items():
+        if type(hurricane['Damage']) == str:
+            pass
+        elif highest_damage_hurricane == "":
+            highest_damage_hurricane = name
+            damage = hurricane['Damage']
+        elif hurricane['Damage'] > damage:
+                highest_damage_hurricane = name
+                damage = hurricane['Damage']
+    return "Hurricane {} brought the highest economic damage of ${}.".format(highest_damage_hurricane,damage)
 
+#print (hurricane_with_highest_economic_damage())
 
+# write your categorize by damage function here:
+def hurricane_economic_damage_rating():
+    damage_scale = {0: 0, 1: 100000000, 2: 1000000000, 3: 10000000000, 4: 50000000000}
+    hurricane_damage_dict = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []}
 
+    for hurricane in hurricanes.values():
+        damage = hurricane['Damage']
+        if type(damage) == str:
+            hurricane_damage_dict[0].append(hurricane)
+        elif damage > damage_scale[4]:
+            hurricane_damage_dict[5].append(hurricane)
+        elif damage > damage_scale[3]:
+            hurricane_damage_dict[4].append(hurricane)
+        elif damage > damage_scale[2]:
+            hurricane_damage_dict[3].append(hurricane)
+        elif damage > damage_scale[1]:
+            hurricane_damage_dict[2].append(hurricane)
+        elif damage > damage_scale[0]:
+            hurricane_damage_dict[1].append(hurricane)
+            
+    return hurricane_damage_dict
 
-
-
-
-# write your catgeorize by damage function here:
+print(hurricane_economic_damage_rating())
